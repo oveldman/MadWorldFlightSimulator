@@ -1,7 +1,7 @@
 ﻿using ObjCRuntime;
 using UIKit;
 
-namespace MadWorld.FlightSimulator.PC;
+namespace MadWorld.FlightSimulator.IOS;
 
 public class Program
 {

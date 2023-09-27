@@ -17,7 +17,7 @@
 
         <!-- App Identifier -->
         <ApplicationId>com.companyname.madworld.flightsimulator.ios</ApplicationId>
-        <ApplicationIdGuid>B12B9AB4-067F-4CE7-8A80-FA58A95F743E</ApplicationIdGuid>
+        <ApplicationIdGuid>96504BD7-9C7A-4C62-A2E0-C543A6A01BA1</ApplicationIdGuid>
 
         <!-- Versions -->
         <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
@@ -51,15 +51,6 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0"/>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Compile Update="Platforms\MacCatalyst\AppDelegate.cs">
-        <ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
-      </Compile>
-      <Compile Update="Platforms\MacCatalyst\Program.cs">
-        <ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
-      </Compile>
     </ItemGroup>
 
 </Project>

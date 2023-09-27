@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace MadWorld.FlightSimulator.PC;
+namespace MadWorld.FlightSimulator.IOS;
 
 [Register("AppDelegate")]
 public class AppDelegate : MauiUIApplicationDelegate
