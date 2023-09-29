@@ -6,7 +6,7 @@ ISimClient client = new SimClient();
 if (client.TryOpen()) 
 {
     IAirplaneInformationClient airplaneInformationClient = new AirplaneInformationClient(client);
-    
+
     while (true)
     {
         client.ReceiveMessage();

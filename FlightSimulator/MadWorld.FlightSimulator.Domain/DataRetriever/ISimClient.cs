@@ -3,7 +3,8 @@
     public interface ISimClient
     {
         bool TryOpen();
-        void RegisterDefinitions();
         void ReceiveMessage();
+        void RegisterDefinitions<T>(DataTypes type, Action<T> infoRetriever);
+        void Dispose();
     }
 }

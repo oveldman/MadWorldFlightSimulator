@@ -1,12 +1,12 @@
 ﻿using MadWorld.FlightSimulator.Domain.DataRetriever;
 using Microsoft.FlightSimulator.SimConnect;
+using System;
 using System.Runtime.InteropServices;
 
 namespace MadWorld.FlightSimulator.Connector;
 
 public class SimClient : ISimClient, IDisposable
 {
-    const int RequestID = 1;
     const int WM_USER_SIMCONNECT = 0x0402;
 
     private SimConnect? simConnect;
@@ -16,25 +16,7 @@ public class SimClient : ISimClient, IDisposable
         try
         {
             simConnect = new SimConnect("Managed Data Request", IntPtr.Zero, WM_USER_SIMCONNECT, null, 0);
-
-            simConnect.AddToDataDefinition(
-                RequestTypes.AirplaneInformation,
-                "Plane Altitude",
-                "feet",
-                SIMCONNECT_DATATYPE.FLOAT64,
-                0,
-                SimConnect.SIMCONNECT_UNUSED);
-
-            simConnect.RegisterDataDefineStruct<AirplaneInfo>(RequestTypes.AirplaneInformation);
-
-            RegisterDefinitions(Ping);
-
-            simConnect.RequestDataOnSimObject(DataTypes.GetAltitude, 
-                RequestTypes.AirplaneInformation, 
-                SimConnect.SIMCONNECT_OBJECT_ID_USER, 
-                SIMCONNECT_PERIOD.SECOND, 
-                SIMCONNECT_DATA_REQUEST_FLAG.DEFAULT,
-                0, 0, 0);
+            AddAirplaneInfo();
 
             return true;
         }
@@ -53,41 +35,44 @@ public class SimClient : ISimClient, IDisposable
         }
     }
 
-    public void RegisterDefinitions(Action<AirplaneInfo> infoRetriever)
+    public void RegisterDefinitions<T>(DataTypes type, Action<T> infoRetriever)
     {
-        void handler(SimConnect x, SIMCONNECT_RECV_SIMOBJECT_DATA y) => infoRetriever(Convert(y));
+        void handler(SimConnect x, SIMCONNECT_RECV_SIMOBJECT_DATA y) => infoRetriever(Convert<T>(type, y));
         simConnect!.OnRecvSimobjectData += handler;
-    }
-
-    public void RegisterDefinitions()
-    {
-        Console.WriteLine("Ping! V3");
     }
 
     public void ReceiveMessage()
     {
         simConnect!.ReceiveMessage();
-        Console.WriteLine("Ping!");
     }
 
-    public void Ping(AirplaneInfo info)
+    private void AddAirplaneInfo()
     {
-        Console.WriteLine("Ping! V4");
+        simConnect!.AddToDataDefinition(
+            RequestTypes.AirplaneInformation,
+            "Plane Altitude",
+            "feet",
+            SIMCONNECT_DATATYPE.FLOAT64,
+            0,
+            SimConnect.SIMCONNECT_UNUSED);
+
+        simConnect.RegisterDataDefineStruct<AirplaneInfo>(RequestTypes.AirplaneInformation);
+
+        simConnect.RequestDataOnSimObject(DataTypes.GetAltitude,
+            RequestTypes.AirplaneInformation,
+            SimConnect.SIMCONNECT_OBJECT_ID_USER,
+            SIMCONNECT_PERIOD.SECOND,
+            SIMCONNECT_DATA_REQUEST_FLAG.DEFAULT,
+            0, 0, 0);
     }
 
-    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 1)]
-    public struct AirplaneInfo
+    private static T Convert<T>(DataTypes type, SIMCONNECT_RECV_SIMOBJECT_DATA data)
     {
-        public double altitude;
-    };
-
-    private static AirplaneInfo Convert(SIMCONNECT_RECV_SIMOBJECT_DATA data)
-    {
-        if (data.dwRequestID == (uint)DataTypes.GetAltitude)
+        if (data.dwRequestID == (uint)type)
         {
-            return (AirplaneInfo)data.dwData[0];
+            return (T)data.dwData[0];
         }
 
-        return new AirplaneInfo();
+        return default!;
     }
 }
