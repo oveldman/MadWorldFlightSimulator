@@ -16,7 +16,6 @@ public class SimClient : ISimClient, IDisposable
         try
         {
             simConnect = new SimConnect("Managed Data Request", IntPtr.Zero, WM_USER_SIMCONNECT, null, 0);
-            RegisterDefinitions(SimConnect_OnRevSimobjectData);
 
             simConnect.AddToDataDefinition(
                 RequestTypes.AirplaneInformation,
@@ -26,7 +25,16 @@ public class SimClient : ISimClient, IDisposable
                 0,
                 SimConnect.SIMCONNECT_UNUSED);
 
-            simConnect.RegisterDataDefineStruct<Struct1>(RequestTypes.AirplaneInformation);
+            simConnect.RegisterDataDefineStruct<AirplaneInfo>(RequestTypes.AirplaneInformation);
+
+            RegisterDefinitions(Ping);
+
+            simConnect.RequestDataOnSimObject(DataTypes.GetAltitude, 
+                RequestTypes.AirplaneInformation, 
+                SimConnect.SIMCONNECT_OBJECT_ID_USER, 
+                SIMCONNECT_PERIOD.SECOND, 
+                SIMCONNECT_DATA_REQUEST_FLAG.DEFAULT,
+                0, 0, 0);
 
             return true;
         }
@@ -45,14 +53,10 @@ public class SimClient : ISimClient, IDisposable
         }
     }
 
-    public void RegisterDefinitions(SimConnect.RecvSimobjectDataBytypeEventHandler dataRetriever)
+    public void RegisterDefinitions(Action<AirplaneInfo> infoRetriever)
     {
-        simConnect!.OnRecvSimobjectDataBytype += dataRetriever;
-    }
-
-    private static void SimConnect_OnRevSimobjectData(SimConnect sender, SIMCONNECT_RECV_SIMOBJECT_DATA_BYTYPE data)
-    {
-        Console.WriteLine("Ping! V2");
+        void handler(SimConnect x, SIMCONNECT_RECV_SIMOBJECT_DATA y) => infoRetriever(Convert(y));
+        simConnect!.OnRecvSimobjectData += handler;
     }
 
     public void RegisterDefinitions()
@@ -62,17 +66,28 @@ public class SimClient : ISimClient, IDisposable
 
     public void ReceiveMessage()
     {
-        simConnect!.RequestDataOnSimObjectType(RequestTypes.AirplaneInformation, RequestTypes.AirplaneInformation, 0, SIMCONNECT_SIMOBJECT_TYPE.USER);
+        simConnect!.ReceiveMessage();
         Console.WriteLine("Ping!");
     }
 
-    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 1)]
-    struct Struct1
+    public void Ping(AirplaneInfo info)
     {
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
-        public String title;
-        public double latitude;
-        public double longitude;
+        Console.WriteLine("Ping! V4");
+    }
+
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 1)]
+    public struct AirplaneInfo
+    {
         public double altitude;
     };
+
+    private static AirplaneInfo Convert(SIMCONNECT_RECV_SIMOBJECT_DATA data)
+    {
+        if (data.dwRequestID == (uint)DataTypes.GetAltitude)
+        {
+            return (AirplaneInfo)data.dwData[0];
+        }
+
+        return new AirplaneInfo();
+    }
 }
