@@ -1,6 +1,5 @@
 ﻿using MadWorld.FlightSimulator.Domain.DataRetriever;
 using Microsoft.FlightSimulator.SimConnect;
-using System;
 using System.Runtime.InteropServices;
 
 namespace MadWorld.FlightSimulator.Connector;
