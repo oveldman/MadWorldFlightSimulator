@@ -1,4 +1,5 @@
-﻿using MadWorld.FlightSimulator.IOS.Infrastructure.Database;
+﻿using MadWorld.FlightSimulator.IOS.Extensions;
+using MadWorld.FlightSimulator.IOS.Infrastructure.Database;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.SignalR.Client;
 
@@ -11,6 +12,7 @@ namespace MadWorld.FlightSimulator.IOS.Pages
 
         private bool Waiting = true;
         private bool HasError = false;
+        private string ErrorMessage = string.Empty;
         private string ServerReturned = string.Empty;
 
         private HubConnection _hubConnection;
@@ -28,9 +30,10 @@ namespace MadWorld.FlightSimulator.IOS.Pages
 
                 await StartSignalR(hubUrl);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 HasError = true;
+                ErrorMessage = ex.Message;
             }
 
             Waiting = false;
@@ -40,7 +43,10 @@ namespace MadWorld.FlightSimulator.IOS.Pages
         private async Task StartSignalR(Uri hubUrl)
         {
             _hubConnection = new HubConnectionBuilder()
-                .WithUrl(hubUrl)
+                .WithUrl(hubUrl, (options) =>
+                {
+                    options.IgnoreSsl();
+                })
                 .Build();
 
             await _hubConnection.StartAsync();

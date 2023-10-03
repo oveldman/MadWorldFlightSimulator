@@ -30,10 +30,8 @@ namespace MadWorld.FlightSimulator.IOS.Infrastructure.Database
             {
                 return await Database.UpdateAsync(settings);
             }
-            else
-            {
-                return await Database.InsertAsync(settings);
-            }
+            
+            return await Database.InsertAsync(settings);
         }
     }
 }
