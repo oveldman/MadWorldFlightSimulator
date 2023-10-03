@@ -32,7 +32,6 @@ namespace MadWorld.FlightSimulator.IOS.Infrastructure.Database
             }
             else
             {
-                settings.ID = 1;
                 return await Database.InsertAsync(settings);
             }
         }
