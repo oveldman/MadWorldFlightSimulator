@@ -13,7 +13,7 @@
         <EnableDefaultCssItems>false</EnableDefaultCssItems>
 
         <!-- Display name -->
-        <ApplicationTitle>MadWorld.FlightSimulator.IOS</ApplicationTitle>
+        <ApplicationTitle>MadWorld Flight</ApplicationTitle>
 
         <!-- App Identifier -->
         <ApplicationId>nl.mad-world.madworld.flightsimulator.ios</ApplicationId>
@@ -34,7 +34,7 @@
     </PropertyGroup>
     <ItemGroup>
         <!-- App Icon -->
-        <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+        <MauiIcon Include="Resources\AppIcon\madworldicon.jpg" ForegroundFile="Resources\AppIcon\madworldicon.jpg" Color="#512BD4" />
 
         <!-- Splash Screen -->
         <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
