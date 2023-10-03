@@ -29,12 +29,9 @@
         <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
     </PropertyGroup>
 
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-ios|AnyCPU'">
-      <CreatePackage>false</CreatePackage>
-    </PropertyGroup>
     <ItemGroup>
         <!-- App Icon -->
-        <MauiIcon Include="Resources\AppIcon\madworldicon.jpg" ForegroundFile="Resources\AppIcon\madworldicon.jpg" Color="#512BD4" />
+        <MauiIcon Include="Resources\AppIcon\appicon.jpg" ForegroundFile="Resources\AppIcon\appiconfg.jpg" Color="#512BD4" />
 
         <!-- Splash Screen -->
         <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
