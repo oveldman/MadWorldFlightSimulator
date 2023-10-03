@@ -2,6 +2,24 @@
 
 <h3>TestPage</h3>
 
-<p>Server answer: @ServerReturned</p>
+@if (!Waiting)
+{
+    @if (!HasError)
+    {
+        <p>Server answer: @ServerReturned</p>
 
-<button @onclick="SendMessage">Send SignalR message</button>
+        <button @onclick="SendMessage">Send SignalR message</button>
+    }
+    else
+    {
+        <div class="alert alert-danger" role="alert">
+            The connection couldn't establish
+        </div>
+    }
+}
+else
+{
+    <div class="alert alert-primary" role="alert">
+       Waiting for connection
+    </div>
+}

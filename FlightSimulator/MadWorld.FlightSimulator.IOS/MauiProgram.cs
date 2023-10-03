@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using MadWorld.FlightSimulator.IOS.Infrastructure.Database;
+using Microsoft.Extensions.Logging;
 
 namespace MadWorld.FlightSimulator.IOS;
 
@@ -17,6 +18,8 @@ public static class MauiProgram
         builder.Services.AddBlazorWebViewDeveloperTools();
         builder.Logging.AddDebug();
 #endif
+
+        builder.Services.AddSingleton<SettingsDatabase>();
 
         return builder.Build();
     }

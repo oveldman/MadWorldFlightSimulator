@@ -1,0 +1,22 @@
+﻿@page "/Settings"
+
+@if (savedSuccesfully)
+{
+    <div class="alert alert-success" role="alert">
+         Settings saved successfully.
+    </div>
+}
+
+<h3>Settings</h3>
+
+<EditForm Model="@CurrentSettings" OnValidSubmit="@SaveSettings">
+    <div>
+        <label>
+            Api Url:
+            <InputText @bind-Value="CurrentSettings.ApiUrl" />
+        </label>
+    </div>
+    <div>
+        <button type="submit">Save Settings</button>
+    </div>
+</EditForm>
