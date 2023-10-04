@@ -1,0 +1,1 @@
+[SimConnect Variables](https://docs.flightsimulator.com/html/Programming_Tools/SimVars/Simulation_Variables.htm)
