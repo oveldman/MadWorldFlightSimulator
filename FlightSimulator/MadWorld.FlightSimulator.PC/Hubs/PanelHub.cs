@@ -7,5 +7,21 @@ namespace MadWorld.FlightSimulator.PC.Hubs
 {
     public sealed class PanelHub : Hub
     {
+        private readonly IPanelButtonsClient Client;
+
+        public PanelHub(IPanelButtonsClient client)
+        {
+            Client = client;
+        }
+
+        public void TurnOnAutoPilot()
+        {
+            Client.TurnOnAutoPilot();
+        }
+
+        public void TurnOffAutoPilot()
+        {
+            Client.TurnOffAutoPilot();
+        }
     }
 }

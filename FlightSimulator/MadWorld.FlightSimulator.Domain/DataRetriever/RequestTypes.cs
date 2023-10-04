@@ -2,6 +2,7 @@
 {
     public enum RequestTypes
     {
-        AirplaneInformation = 1
+        AirplaneInformation = 1,
+        AutoPilot = 2
     }
 }

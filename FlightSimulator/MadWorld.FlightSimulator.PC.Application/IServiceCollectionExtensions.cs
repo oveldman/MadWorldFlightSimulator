@@ -10,6 +10,7 @@ namespace MadWorld.FlightSimulator.PC.Application
         public static void AddApplication(this IServiceCollection services)
         {
             services.AddSingleton<IAirplaneInformationClient, AirplaneInformationClient>();
+            services.AddSingleton<IPanelButtonsClient, PanelButtonsClient>();
             services.AddSingleton<IPanelSubject, PanelSubject>();
         }
     }

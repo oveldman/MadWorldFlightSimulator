@@ -20,7 +20,7 @@ namespace MadWorld.FlightSimulator.Console
 
         public void SetAirplaneInformation(AirplaneInfo info)
         {
-            System.Console.WriteLine($"Altitude: {info.altitude}");
+            System.Console.WriteLine($"{info.title}: Altitude: {info.altitude} & Autopilot on?: {info.autopilotMaster}");
         }
 
         public void UnregisterHub(IHub hub)

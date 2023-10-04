@@ -48,4 +48,8 @@ public class SimClient<TType> : ISimClient where TType : struct
     {
         IsConnected = false;
     }
+
+    public void PressButton(EventTypes eventType)
+    {
+    }
 }

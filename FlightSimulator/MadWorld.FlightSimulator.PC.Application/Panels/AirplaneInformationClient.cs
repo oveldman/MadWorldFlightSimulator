@@ -16,7 +16,7 @@ namespace MadWorld.FlightSimulator.PC.Application
 
         public void Init()
         {
-            _client.RegisterDefinitions<AirplaneInfo>(DataTypes.GetAltitude, GetAirplaneInfo);
+            _client.RegisterDefinitions<AirplaneInfo>(DataTypes.AirplaneInformation, GetAirplaneInfo);
         }
 
         private void GetAirplaneInfo(AirplaneInfo info)

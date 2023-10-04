@@ -1,7 +1,7 @@
 ﻿using MadWorld.FlightSimulator.Domain.DataRetriever;
 using Microsoft.FlightSimulator.SimConnect;
 using System.Runtime.InteropServices;
-using System.Transactions;
+using System.Text.RegularExpressions;
 
 namespace MadWorld.FlightSimulator.Connector;
 
@@ -18,6 +18,7 @@ public class SimClient : ISimClient, IDisposable
         try
         {
             simConnect = new SimConnect("Managed Data Request", IntPtr.Zero, WM_USER_SIMCONNECT, null, 0);
+            AddAutoPilot();
             AddAirplaneInfo();
 
             IsConnected = true;
@@ -63,6 +64,14 @@ public class SimClient : ISimClient, IDisposable
     private void AddAirplaneInfo()
     {
         simConnect!.AddToDataDefinition(
+            RequestTypes.AirplaneInformation, 
+            "Title", 
+            null, 
+            SIMCONNECT_DATATYPE.STRING256, 
+            0,
+            SimConnect.SIMCONNECT_UNUSED);
+
+        simConnect.AddToDataDefinition(
             RequestTypes.AirplaneInformation,
             "Plane Altitude",
             "feet",
@@ -70,14 +79,38 @@ public class SimClient : ISimClient, IDisposable
             0,
             SimConnect.SIMCONNECT_UNUSED);
 
+        simConnect.AddToDataDefinition(
+            RequestTypes.AirplaneInformation,
+            "AUTOPILOT MASTER",
+            "",
+            SIMCONNECT_DATATYPE.INT32,
+            0,
+            SimConnect.SIMCONNECT_UNUSED);
+
         simConnect.RegisterDataDefineStruct<AirplaneInfo>(RequestTypes.AirplaneInformation);
 
-        simConnect.RequestDataOnSimObject(DataTypes.GetAltitude,
+        simConnect.RequestDataOnSimObject(DataTypes.AirplaneInformation,
             RequestTypes.AirplaneInformation,
             SimConnect.SIMCONNECT_OBJECT_ID_USER,
             SIMCONNECT_PERIOD.SECOND,
             SIMCONNECT_DATA_REQUEST_FLAG.DEFAULT,
             0, 0, 0);
+    }
+
+    private void AddAutoPilot()
+    {
+        simConnect!.MapClientEventToSimEvent(EventTypes.KEY_AUTOPILOT_ON, "AUTOPILOT_ON");
+        simConnect!.AddClientEventToNotificationGroup(Groups.Group1, EventTypes.KEY_AUTOPILOT_ON, false);
+
+        simConnect!.MapClientEventToSimEvent(EventTypes.KEY_AUTOPILOT_OFF, "AUTOPILOT_OFF");
+        simConnect!.AddClientEventToNotificationGroup(Groups.Group1, EventTypes.KEY_AUTOPILOT_OFF, false);
+
+        simConnect.SetNotificationGroupPriority(Groups.Group1, SimConnect.SIMCONNECT_GROUP_PRIORITY_HIGHEST);
+    }
+
+    public void PressButton(EventTypes eventType)
+    {
+        simConnect!.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, eventType, 0, Groups.Group1, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
     }
 
     private static T Convert<T>(DataTypes type, SIMCONNECT_RECV_SIMOBJECT_DATA data)

@@ -5,6 +5,7 @@
         bool IsConnected { get; }
         bool TryOpen();
         Task StartMessageService();
+        void PressButton(EventTypes eventType);
         void ReceiveMessage();
         void RegisterDefinitions<T>(DataTypes type, Action<T> infoRetriever);
         void Dispose();

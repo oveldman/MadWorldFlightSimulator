@@ -1,7 +1,7 @@
 ﻿namespace MadWorld.FlightSimulator.Domain.DataRetriever
 {
-    public enum DataTypes
+    public enum Groups
     {
-        AirplaneInformation = 1
+        Group1 = 1,
     }
 }
