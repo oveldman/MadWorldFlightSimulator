@@ -5,10 +5,7 @@ using MadWorld.FlightSimulator.PC;
 using MadWorld.FlightSimulator.Simulator;
 
 var builder = WebApplication.CreateBuilder(args);
-var useSimulator = bool.Parse(builder
-    .Configuration
-    .GetSection("DebugSettings:UseSimulator")
-    .Value!);
+var useSimulator = !OperatingSystem.IsWindows();
 
 
 builder.Services.AddRazorPages();
