@@ -11,5 +11,6 @@
   <ItemGroup>
     <ProjectReference Include="..\MadWorld.FlightSimulator.Domain\MadWorld.FlightSimulator.Domain.csproj" />
     <ProjectReference Include="..\MadWorld.FlightSimulator.PC.Application\MadWorld.FlightSimulator.PC.Application.csproj" />
+    <ProjectReference Include="..\MadWorld.FlightSimulator.Simulator\MadWorld.FlightSimulator.Simulator.csproj" />
   </ItemGroup>
 </Project>

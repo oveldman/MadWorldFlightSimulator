@@ -33,7 +33,7 @@ namespace MadWorld.FlightSimulator.IOS.Pages
             catch (Exception ex)
             {
                 HasError = true;
-                ErrorMessage = ex.Message;
+                ErrorMessage = ex.Message + currentSettings.ApiUrl;
             }
 
             Waiting = false;
