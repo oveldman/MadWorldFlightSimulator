@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -8,4 +8,8 @@
 
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
+  <ItemGroup>
+    <ProjectReference Include="..\MadWorld.FlightSimulator.Domain\MadWorld.FlightSimulator.Domain.csproj" />
+    <ProjectReference Include="..\MadWorld.FlightSimulator.PC.Application\MadWorld.FlightSimulator.PC.Application.csproj" />
+  </ItemGroup>
 </Project>

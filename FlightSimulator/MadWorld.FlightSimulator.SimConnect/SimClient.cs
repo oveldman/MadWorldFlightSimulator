@@ -1,6 +1,7 @@
 ﻿using MadWorld.FlightSimulator.Domain.DataRetriever;
 using Microsoft.FlightSimulator.SimConnect;
 using System.Runtime.InteropServices;
+using System.Transactions;
 
 namespace MadWorld.FlightSimulator.Connector;
 
@@ -10,6 +11,8 @@ public class SimClient : ISimClient, IDisposable
 
     private SimConnect? simConnect;
 
+    public bool IsConnected { get; private set; }
+
     public bool TryOpen()
     {
         try
@@ -17,16 +20,28 @@ public class SimClient : ISimClient, IDisposable
             simConnect = new SimConnect("Managed Data Request", IntPtr.Zero, WM_USER_SIMCONNECT, null, 0);
             AddAirplaneInfo();
 
-            return true;
+            IsConnected = true;
+            return IsConnected;
         }
         catch (COMException)
         {
+            IsConnected = false;
             return false;
+        }
+    }
+
+    public async Task StartMessageService()
+    {
+        while (IsConnected)
+        {
+            simConnect!.ReceiveMessage();
+            Thread.Sleep(1000);
         }
     }
 
     public void Dispose()
     {
+        IsConnected = false;
         if (simConnect != null)
         {
             simConnect.Dispose();

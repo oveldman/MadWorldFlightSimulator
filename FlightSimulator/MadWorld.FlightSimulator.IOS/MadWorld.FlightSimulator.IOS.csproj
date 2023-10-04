@@ -55,6 +55,7 @@
         <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.1" />
     </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MadWorld.FlightSimulator.Domain\MadWorld.FlightSimulator.Domain.csproj" />
     <ProjectReference Include="..\MadWorld.FlightSimulator.IOS.Infrastructure\MadWorld.FlightSimulator.IOS.Infrastructure.csproj" />
   </ItemGroup>
 

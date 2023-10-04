@@ -1,0 +1,17 @@
+﻿@page "/"
+
+@if (HasError)
+{
+    <div class="alert alert-danger" role="alert">
+        The connection couldn't establish
+    </div>
+}
+
+@if (!Client.IsConnected)
+{
+    <button @onclick="Connect">Start SimClient</button>
+}
+else
+{
+    <p>Sim Client started</p>
+}

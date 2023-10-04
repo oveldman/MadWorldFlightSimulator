@@ -1,0 +1,17 @@
+﻿@page "/Panel"
+
+@if (HasError)
+{
+    <div class="alert alert-danger" role="alert">
+        The connection couldn't establish
+    </div>
+}
+
+@if (!Connected)
+{
+    <button @onclick="Connect">Connect with Flight Simulator</button>
+}
+else
+{
+    <p>Altitude: @airplaneInfo.Altitude</p>
+}
