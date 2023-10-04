@@ -1,7 +1,6 @@
 ﻿using MadWorld.FlightSimulator.Domain.DataRetriever;
 using Microsoft.FlightSimulator.SimConnect;
 using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
 
 namespace MadWorld.FlightSimulator.Connector;
 
@@ -79,10 +78,11 @@ public class SimClient : ISimClient, IDisposable
             0,
             SimConnect.SIMCONNECT_UNUSED);
 
+
         simConnect.AddToDataDefinition(
             RequestTypes.AirplaneInformation,
             "AUTOPILOT MASTER",
-            "",
+            "bool",
             SIMCONNECT_DATATYPE.INT32,
             0,
             SimConnect.SIMCONNECT_UNUSED);
