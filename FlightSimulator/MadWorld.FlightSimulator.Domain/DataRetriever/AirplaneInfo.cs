@@ -8,5 +8,6 @@ public struct AirplaneInfo
     [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
     public String title;
     public double altitude;
-    public int autopilotMaster;
+    public double onGround;
+    public double autopilotMaster;
 };

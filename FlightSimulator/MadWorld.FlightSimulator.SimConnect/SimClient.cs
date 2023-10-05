@@ -78,18 +78,27 @@ public class SimClient : ISimClient, IDisposable
             0,
             SimConnect.SIMCONNECT_UNUSED);
 
+        simConnect.AddToDataDefinition(
+            RequestTypes.AirplaneInformation,
+            "SIM ON GROUND",
+            "Boolean",
+            SIMCONNECT_DATATYPE.FLOAT64,
+            0.0f,
+            SimConnect.SIMCONNECT_UNUSED);
 
         simConnect.AddToDataDefinition(
             RequestTypes.AirplaneInformation,
             "AUTOPILOT MASTER",
-            "bool",
-            SIMCONNECT_DATATYPE.INT32,
-            0,
+            "Boolean",
+            SIMCONNECT_DATATYPE.FLOAT64,
+            0.0f,
             SimConnect.SIMCONNECT_UNUSED);
+
 
         simConnect.RegisterDataDefineStruct<AirplaneInfo>(RequestTypes.AirplaneInformation);
 
-        simConnect.RequestDataOnSimObject(DataTypes.AirplaneInformation,
+        simConnect.RequestDataOnSimObject(
+            DataTypes.AirplaneInformation,
             RequestTypes.AirplaneInformation,
             SimConnect.SIMCONNECT_OBJECT_ID_USER,
             SIMCONNECT_PERIOD.SECOND,
