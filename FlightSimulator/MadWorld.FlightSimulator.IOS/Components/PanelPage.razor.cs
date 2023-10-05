@@ -4,9 +4,9 @@ using MadWorld.FlightSimulator.IOS.Infrastructure.Database;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.SignalR.Client;
 
-namespace MadWorld.FlightSimulator.IOS.Pages
+namespace MadWorld.FlightSimulator.IOS.Components
 {
-    public partial class PanelMiniumPage
+    public partial class PanelPage
     {
         private bool Connected = false;
         private bool HasError = false;
@@ -36,6 +36,11 @@ namespace MadWorld.FlightSimulator.IOS.Pages
             }
         }
 
+        private string GetButtonClass(bool isTurnedOn)
+        {
+            return isTurnedOn ? "panel-button-on" : "panel-button-off";
+        }
+
         private async Task StartSignalR(Uri hubUrl)
         {
             _hubConnection = new HubConnectionBuilder()
@@ -52,6 +57,17 @@ namespace MadWorld.FlightSimulator.IOS.Pages
                 airplaneInfo = info;
                 InvokeAsync(StateHasChanged);
             });
+        }
+
+        private async Task ChangeAutoPilot()
+        {
+            if (!airplaneInfo.IsAutoPilotOn)
+            {
+                await _hubConnection.InvokeAsync("TurnOnAutoPilot");
+                return;
+            }
+            
+            await _hubConnection.InvokeAsync("TurnOffAutoPilot");
         }
     }
 }

@@ -1,0 +1,34 @@
+﻿<style>
+    body {
+        background-color: #0085ad;
+    }
+</style>
+
+@if (HasError)
+{
+    <div class="alert alert-danger" role="alert">
+        The connection couldn't establish
+    </div>
+}
+
+@if (!Connected)
+{
+    <button @onclick="Connect">Connect with Flight Simulator</button>
+}
+else
+{
+    <div class="row">
+        <div class="col">
+            <p>Altitude: @airplaneInfo.Altitude</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <button class="btn-remove-style" @onclick="ChangeAutoPilot">
+                <div class="panel-button @GetButtonClass(airplaneInfo.IsAutoPilotOn)">
+                    <p>AP</p>
+                </div>
+            </button>
+        </div>
+    </div>
+}
