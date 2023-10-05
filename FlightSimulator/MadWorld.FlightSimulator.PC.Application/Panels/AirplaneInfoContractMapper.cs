@@ -9,7 +9,10 @@ namespace MadWorld.FlightSimulator.PC.Application.Panels
         {
             return new AirplaneInfoContract()
             {
-                Altitude = info.altitude
+                Title = info.title,
+                Altitude = info.altitude,
+                IsPlaneOnGround = info.onGround != 0,
+                IsAutoPilotOn = info.autopilotMaster != 0
             };
         }
     }
