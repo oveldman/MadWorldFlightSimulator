@@ -6,14 +6,22 @@
 
 @if (HasError)
 {
-    <div class="alert alert-danger" role="alert">
-        The connection couldn't establish
+    <div class="row">
+        <div class="col">
+            <div class="alert alert-danger" role="alert">
+                The connection couldn't establish
+            </div>
+        </div>
     </div>
 }
 
 @if (!Connected)
 {
-    <button @onclick="Connect">Connect with Flight Simulator</button>
+    <div class="row">
+        <div class="col">
+            <button @onclick="Connect">Connect with Flight Simulator</button>
+        </div>
+    </div>
 }
 else
 {

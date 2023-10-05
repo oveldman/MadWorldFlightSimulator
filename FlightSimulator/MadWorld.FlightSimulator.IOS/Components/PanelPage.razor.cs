@@ -61,13 +61,14 @@ namespace MadWorld.FlightSimulator.IOS.Components
 
         private async Task ChangeAutoPilot()
         {
-            if (!airplaneInfo.IsAutoPilotOn)
+            if (airplaneInfo.IsAutoPilotOn)
+            {
+                await _hubConnection.InvokeAsync("TurnOffAutoPilot");
+            }
+            else
             {
                 await _hubConnection.InvokeAsync("TurnOnAutoPilot");
-                return;
             }
-            
-            await _hubConnection.InvokeAsync("TurnOffAutoPilot");
         }
     }
 }
