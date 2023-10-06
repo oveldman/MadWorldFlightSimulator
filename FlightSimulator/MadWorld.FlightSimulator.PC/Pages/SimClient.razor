@@ -13,5 +13,11 @@
 }
 else
 {
+    <p>Name: @AirplaneInfo.title</p>
+
+    <p>Altitude: @AirplaneInfo.altitude AutoPilot: @AirplaneInfo.autopilotMaster On the ground: @AirplaneInfo.onGround</p>
+
     <p>Sim Client started</p>
+
+    <button @onclick="Disconnect">Stop SimClient</button>
 }

@@ -30,6 +30,13 @@ public class SimClient : ISimClient, IDisposable
         }
     }
 
+    public void Disconnect()
+    {
+        simConnect?.Dispose();
+        simConnect = null;
+        IsConnected = false;
+    }
+
     public async Task StartMessageService()
     {
         while (IsConnected)

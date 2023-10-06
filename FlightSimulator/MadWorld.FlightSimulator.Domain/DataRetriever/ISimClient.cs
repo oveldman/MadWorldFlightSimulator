@@ -4,6 +4,7 @@
     {
         bool IsConnected { get; }
         bool TryOpen();
+        void Disconnect();
         Task StartMessageService();
         void PressButton(EventTypes eventType);
         void ReceiveMessage();

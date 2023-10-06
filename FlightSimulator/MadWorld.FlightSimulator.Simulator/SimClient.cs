@@ -14,13 +14,21 @@ public class SimClient<TType> : ISimClient where TType : struct
         return IsConnected;
     }
 
-    public async Task StartMessageService()
+    public void Disconnect()
+    {
+        RandomFlightDataGenerator<TType>.Reset();
+        IsConnected = false;
+    }
+
+    public Task StartMessageService()
     {
         while (IsConnected)
         {
             ReceiveMessage();
             Thread.Sleep(1000);
         }
+
+        return Task.CompletedTask;
     }
 
     public void ReceiveMessage()
@@ -51,5 +59,14 @@ public class SimClient<TType> : ISimClient where TType : struct
 
     public void PressButton(EventTypes eventType)
     {
+        if (eventType == EventTypes.KEY_AUTOPILOT_ON)
+        {
+            RandomFlightDataGenerator<TType>.SetAutoPilot(true);
+        }
+
+        if (eventType == EventTypes.KEY_AUTOPILOT_OFF)
+        {
+            RandomFlightDataGenerator<TType>.SetAutoPilot(false);
+        }
     }
 }

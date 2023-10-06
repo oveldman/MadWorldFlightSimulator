@@ -4,8 +4,9 @@ using Microsoft.AspNetCore.Components;
 
 namespace MadWorld.FlightSimulator.PC.Pages
 {
-    public partial class SimClient
+    public partial class SimClient : IHub, IDisposable
     {
+        private AirplaneInfo AirplaneInfo = new();
         private bool HasError = false;
 
         [Inject]
@@ -26,6 +27,7 @@ namespace MadWorld.FlightSimulator.PC.Pages
             {
                 InformationClient.Init();
                 PanelSubject.RegisterHub(ManualPanelHub);
+                PanelSubject.RegisterHub(this);
 
                 Task.Run(() => Client.StartMessageService());
             }
@@ -33,6 +35,26 @@ namespace MadWorld.FlightSimulator.PC.Pages
             {
                 HasError = true;
             }
+        }
+
+        public void Disconnect()
+        {
+            PanelSubject.UnregisterHub(ManualPanelHub);
+            PanelSubject.UnregisterHub(this);
+            Client.Disconnect();
+        }
+
+        public void Dispose()
+        {
+            PanelSubject.UnregisterHub(this);
+        }
+
+        public Task SendAirplaneInformation(AirplaneInfo info)
+        {
+            AirplaneInfo = info;
+            InvokeAsync(StateHasChanged);
+
+            return Task.CompletedTask;
         }
     }
 }
