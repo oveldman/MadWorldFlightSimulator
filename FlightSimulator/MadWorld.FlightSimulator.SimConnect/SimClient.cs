@@ -101,6 +101,14 @@ public class SimClient : ISimClient, IDisposable
             0.0f,
             SimConnect.SIMCONNECT_UNUSED);
 
+        simConnect.AddToDataDefinition(
+            RequestTypes.AirplaneInformation,
+            "AUTOPILOT ALTITUDE LOCK VAR",
+            "feet",
+            SIMCONNECT_DATATYPE.FLOAT64,
+            0.0f,
+            SimConnect.SIMCONNECT_UNUSED);
+
 
         simConnect.RegisterDataDefineStruct<AirplaneInfo>(RequestTypes.AirplaneInformation);
 
@@ -121,12 +129,18 @@ public class SimClient : ISimClient, IDisposable
         simConnect!.MapClientEventToSimEvent(EventTypes.KEY_AUTOPILOT_OFF, "AUTOPILOT_OFF");
         simConnect!.AddClientEventToNotificationGroup(Groups.Group1, EventTypes.KEY_AUTOPILOT_OFF, false);
 
+        simConnect!.MapClientEventToSimEvent(EventTypes.KEY_AUTOPILOT_INCREASE_ALTITUDE, "AP_ALT_VAR_INC");
+        simConnect!.AddClientEventToNotificationGroup(Groups.Group1, EventTypes.KEY_AUTOPILOT_INCREASE_ALTITUDE, false);
+
+        simConnect!.MapClientEventToSimEvent(EventTypes.KEY_AUTOPILOT_DECREASE_ALTITUDE, "AP_ALT_VAR_DEC");
+        simConnect!.AddClientEventToNotificationGroup(Groups.Group1, EventTypes.KEY_AUTOPILOT_DECREASE_ALTITUDE, false);
+
         simConnect.SetNotificationGroupPriority(Groups.Group1, SimConnect.SIMCONNECT_GROUP_PRIORITY_HIGHEST);
     }
 
-    public void PressButton(EventTypes eventType)
+    public void PressButton(EventTypes eventType, uint data = 0)
     {
-        simConnect!.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, eventType, 0, Groups.Group1, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+        simConnect!.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, eventType, data, Groups.Group1, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
     }
 
     private static T Convert<T>(DataTypes type, SIMCONNECT_RECV_SIMOBJECT_DATA data)

@@ -1,10 +1,5 @@
 ﻿using MadWorld.FlightSimulator.Domain.DataRetriever;
 using MadWorld.FlightSimulator.Domain.Panels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MadWorld.FlightSimulator.Console
 {

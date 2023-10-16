@@ -12,7 +12,8 @@ namespace MadWorld.FlightSimulator.PC.Application.Panels
                 Title = info.title,
                 Altitude = info.altitude,
                 IsPlaneOnGround = info.onGround != 0,
-                IsAutoPilotOn = info.autopilotMaster != 0
+                IsAutoPilotOn = info.autopilotMaster != 0,
+                AutoPilotAltitude = info.autopilotAltitude
             };
         }
     }

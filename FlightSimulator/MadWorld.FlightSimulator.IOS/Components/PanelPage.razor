@@ -26,17 +26,82 @@
 else
 {
     <div class="row">
-        <div class="col">
-            <p>Altitude: @airplaneInfo.Altitude</p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <button class="btn-remove-style" @onclick="ChangeAutoPilot">
-                <div class="panel-button @GetButtonClass(airplaneInfo.IsAutoPilotOn)">
-                    <p>AP</p>
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    Information
                 </div>
-            </button>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <p>Altitude: @airplaneInfo.Altitude</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    Auto Pilot
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <p>Set Altitude: @airplaneInfo.AutoPilotAltitude</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <button class="btn-remove-style" @onclick="ChangeAutoPilot">
+                                <div class="panel-button @GetButtonClass(airplaneInfo.IsAutoPilotOn)">
+                                    <p>AP</p>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col">
+                            <button class="btn-remove-style" @onclick="IncreaseAltitudeByThousand">
+                                <div class="panel-button panel-button-default">
+                                    <p>
+                                        Increase altitude<br>
+                                        By 1000 ft
+                                    </p>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col">
+                            <button class="btn-remove-style" @onclick="DecreaseAltitudeByThousand">
+                                <div class="panel-button panel-button-default">
+                                    <p>
+                                        Decrease altitude<br>
+                                       By 1000 ft
+                                    </p>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col">
+                            <button class="btn-remove-style" @onclick="IncreaseAltitudeByHundert">
+                                <div class="panel-button panel-button-default">
+                                    <p>
+                                        Increase altitude<br>
+                                        By 100 ft
+                                    </p>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col">
+                            <button class="btn-remove-style" @onclick="DecreaseAltitudeByHundert">
+                                <div class="panel-button panel-button-default">
+                                    <p>
+                                        Decrease altitude<br>
+                                        By 100 ft
+                                    </p>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 }

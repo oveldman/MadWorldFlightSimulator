@@ -6,8 +6,6 @@ using MadWorld.FlightSimulator.Simulator;
 
 var builder = WebApplication.CreateBuilder(args);
 var useSimulator = !OperatingSystem.IsWindows();
-useSimulator = true;
-
 
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();

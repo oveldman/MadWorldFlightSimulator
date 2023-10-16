@@ -1,4 +1,5 @@
 using MadWorld.FlightSimulator.Domain.DataRetriever;
+using System.Formats.Asn1;
 
 namespace MadWorld.FlightSimulator.Simulator;
 
@@ -57,7 +58,7 @@ public class SimClient<TType> : ISimClient where TType : struct
         IsConnected = false;
     }
 
-    public void PressButton(EventTypes eventType)
+    public void PressButton(EventTypes eventType, uint data)
     {
         if (eventType == EventTypes.KEY_AUTOPILOT_ON)
         {

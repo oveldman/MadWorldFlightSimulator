@@ -23,5 +23,25 @@ namespace MadWorld.FlightSimulator.PC.Hubs
         {
             Client.TurnOffAutoPilot();
         }
+
+        public void IncreaseAltitudeAutoPilotByHundert()
+        {
+            Client.IncreaseAltitudeAutoPilot(AltitudeChangeValues.Hundert);
+        }
+
+        public void DecreaseAltitudeAutoPilotByHundert()
+        {
+            Client.DecreaseAltitudeAutoPilot(AltitudeChangeValues.Hundert);
+        }
+
+        public void IncreaseAltitudeAutoPilotByThousand()
+        {
+            Client.IncreaseAltitudeAutoPilot(AltitudeChangeValues.Thousand);
+        }
+
+        public void DecreaseAltitudeAutoPilotByThousand()
+        {
+            Client.DecreaseAltitudeAutoPilot(AltitudeChangeValues.Thousand);
+        }
     }
 }

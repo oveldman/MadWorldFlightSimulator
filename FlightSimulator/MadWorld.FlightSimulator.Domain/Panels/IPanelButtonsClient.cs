@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MadWorld.FlightSimulator.Domain.DataRetriever;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,5 +11,7 @@ namespace MadWorld.FlightSimulator.Domain.Panels
     {
         void TurnOnAutoPilot();
         void TurnOffAutoPilot();
+        void IncreaseAltitudeAutoPilot(AltitudeChangeValues altitudeChangeValues);
+        void DecreaseAltitudeAutoPilot(AltitudeChangeValues altitudeChangeValues);
     }
 }

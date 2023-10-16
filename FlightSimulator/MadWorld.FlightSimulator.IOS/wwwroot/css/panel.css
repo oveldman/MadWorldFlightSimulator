@@ -23,6 +23,10 @@
     background-color: #B22222;
 }
 
+.panel-button-default {
+    background-color: #778899;
+}
+
 .panel-menu-button {
     font-size: 40px;
 }

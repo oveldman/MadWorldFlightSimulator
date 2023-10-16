@@ -6,5 +6,6 @@
         public double Altitude { get; set; }
         public bool IsPlaneOnGround { get; set; }
         public bool IsAutoPilotOn { get; set; }
+        public double AutoPilotAltitude { get; set; }
     }
 }

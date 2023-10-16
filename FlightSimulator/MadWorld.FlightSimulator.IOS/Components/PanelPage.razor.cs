@@ -70,5 +70,25 @@ namespace MadWorld.FlightSimulator.IOS.Components
                 await _hubConnection.InvokeAsync("TurnOnAutoPilot");
             }
         }
+
+        private async Task IncreaseAltitudeByHundert()
+        {
+            await _hubConnection.InvokeAsync("IncreaseAltitudeAutoPilotByHundert");
+        }
+
+        private async Task DecreaseAltitudeByHundert()
+        {
+            await _hubConnection.InvokeAsync("DecreaseAltitudeAutoPilotByHundert");
+        }
+
+        private async Task IncreaseAltitudeByThousand()
+        {
+            await _hubConnection.InvokeAsync("IncreaseAltitudeAutoPilotByThousand");
+        }
+
+        private async Task DecreaseAltitudeByThousand()
+        {
+            await _hubConnection.InvokeAsync("DecreaseAltitudeAutoPilotByThousand");
+        }
     }
 }

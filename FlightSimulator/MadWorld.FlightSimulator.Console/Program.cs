@@ -13,7 +13,7 @@ if (client.TryOpen())
     IAirplaneInformationClient airplaneInformationClient = new AirplaneInformationClient(subject, client);
     airplaneInformationClient.Init();
 
-    panelClient.TurnOnAutoPilot();
+    panelClient.IncreaseAltitudeAutoPilot();
 
     while (true)
     {

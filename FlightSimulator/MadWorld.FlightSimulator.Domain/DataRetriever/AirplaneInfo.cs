@@ -10,4 +10,5 @@ public struct AirplaneInfo
     public double altitude;
     public double onGround;
     public double autopilotMaster;
+    public double autopilotAltitude;
 };
