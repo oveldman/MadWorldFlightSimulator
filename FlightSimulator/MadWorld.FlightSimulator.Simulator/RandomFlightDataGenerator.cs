@@ -6,8 +6,10 @@ namespace MadWorld.FlightSimulator.Simulator;
 public static class RandomFlightDataGenerator<TType>
 {
     private const string Name = "Simulator Airplane";
-    private static double AutoPilot = 0;
-    private static double AutoPilotAltitude = 5000;
+    // ReSharper disable once StaticMemberInGenericType
+    private static double _autoPilot = 0;
+    // ReSharper disable once StaticMemberInGenericType
+    private static double _autoPilotAltitude = 5000;
 
     public static TType Generate()
     {
@@ -17,8 +19,8 @@ public static class RandomFlightDataGenerator<TType>
             {
                 title = Name,
                 altitude = new Random().Next(0, 10000),
-                autopilotMaster = AutoPilot,
-                autopilotAltitude = AutoPilotAltitude,
+                autopilotMaster = _autoPilot,
+                autopilotAltitude = _autoPilotAltitude,
                 onGround = 0
             };
         }
@@ -28,27 +30,27 @@ public static class RandomFlightDataGenerator<TType>
 
     public static void SetAutoPilot(bool isActivated)
     {
-        AutoPilot = isActivated ? 1 : 0;
+        _autoPilot = isActivated ? 1 : 0;
     }
 
     public static void Reset()
     {
-        AutoPilot = 0;
+        _autoPilot = 0;
     }
 
     public static void IncreaseAltitudeAutoPilot(uint altitudeChange)
     {
-        AutoPilotAltitude += altitudeChange;
+        _autoPilotAltitude += altitudeChange;
     }
     
     public static void DecreaseAltitudeAutoPilot(uint altitudeChange)
     {
-        if (AutoPilotAltitude - altitudeChange < 0)
+        if (_autoPilotAltitude - altitudeChange < 0)
         {
-            AutoPilotAltitude = 0;
+            _autoPilotAltitude = 0;
             return;
         }
         
-        AutoPilotAltitude -= altitudeChange;
+        _autoPilotAltitude -= altitudeChange;
     }
 }
