@@ -2,6 +2,7 @@
 using MadWorld.FlightSimulator.IOS.Extensions;
 using MadWorld.FlightSimulator.IOS.Infrastructure.Database;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.SignalR.Client;
 
 namespace MadWorld.FlightSimulator.IOS.Components
@@ -91,7 +92,7 @@ namespace MadWorld.FlightSimulator.IOS.Components
             await _hubConnection.InvokeAsync("DecreaseAltitudeAutoPilotByThousand");
         }
 
-        private async Task SelectAtcOption(int option)
+        private async Task SelectAtcOption(MouseEventArgs e, int option)
         {
             await _hubConnection.InvokeAsync("SelectAtcOption", option);
         }
