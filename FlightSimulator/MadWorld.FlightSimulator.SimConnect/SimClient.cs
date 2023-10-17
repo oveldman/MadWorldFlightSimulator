@@ -18,6 +18,10 @@ public class SimClient : ISimClient, IDisposable
         {
             simConnect = new SimConnect("Managed Data Request", IntPtr.Zero, WM_USER_SIMCONNECT, null, 0);
             AddAutoPilot();
+            AddComRadio();
+
+            simConnect.SetNotificationGroupPriority(Groups.Default, SimConnect.SIMCONNECT_GROUP_PRIORITY_HIGHEST);
+
             AddAirplaneInfo();
 
             IsConnected = true;
@@ -124,23 +128,54 @@ public class SimClient : ISimClient, IDisposable
     private void AddAutoPilot()
     {
         simConnect!.MapClientEventToSimEvent(EventTypes.KEY_AUTOPILOT_ON, "AUTOPILOT_ON");
-        simConnect!.AddClientEventToNotificationGroup(Groups.Group1, EventTypes.KEY_AUTOPILOT_ON, false);
+        simConnect!.AddClientEventToNotificationGroup(Groups.Default, EventTypes.KEY_AUTOPILOT_ON, false);
 
         simConnect!.MapClientEventToSimEvent(EventTypes.KEY_AUTOPILOT_OFF, "AUTOPILOT_OFF");
-        simConnect!.AddClientEventToNotificationGroup(Groups.Group1, EventTypes.KEY_AUTOPILOT_OFF, false);
+        simConnect!.AddClientEventToNotificationGroup(Groups.Default, EventTypes.KEY_AUTOPILOT_OFF, false);
 
         simConnect!.MapClientEventToSimEvent(EventTypes.KEY_AUTOPILOT_INCREASE_ALTITUDE, "AP_ALT_VAR_INC");
-        simConnect!.AddClientEventToNotificationGroup(Groups.Group1, EventTypes.KEY_AUTOPILOT_INCREASE_ALTITUDE, false);
+        simConnect!.AddClientEventToNotificationGroup(Groups.Default, EventTypes.KEY_AUTOPILOT_INCREASE_ALTITUDE, false);
 
         simConnect!.MapClientEventToSimEvent(EventTypes.KEY_AUTOPILOT_DECREASE_ALTITUDE, "AP_ALT_VAR_DEC");
-        simConnect!.AddClientEventToNotificationGroup(Groups.Group1, EventTypes.KEY_AUTOPILOT_DECREASE_ALTITUDE, false);
+        simConnect!.AddClientEventToNotificationGroup(Groups.Default, EventTypes.KEY_AUTOPILOT_DECREASE_ALTITUDE, false);
+    }
 
-        simConnect.SetNotificationGroupPriority(Groups.Group1, SimConnect.SIMCONNECT_GROUP_PRIORITY_HIGHEST);
+    public void AddComRadio()
+    {
+        simConnect!.MapClientEventToSimEvent(EventTypes.KEY_ATC_MENU_SELECT_0, "ATC_MENU_0");
+        simConnect!.AddClientEventToNotificationGroup(Groups.Default, EventTypes.KEY_ATC_MENU_SELECT_0, false);
+
+        simConnect!.MapClientEventToSimEvent(EventTypes.KEY_ATC_MENU_SELECT_1, "ATC_MENU_1");
+        simConnect!.AddClientEventToNotificationGroup(Groups.Default, EventTypes.KEY_ATC_MENU_SELECT_1, false);
+
+        simConnect!.MapClientEventToSimEvent(EventTypes.KEY_ATC_MENU_SELECT_2, "ATC_MENU_2");
+        simConnect!.AddClientEventToNotificationGroup(Groups.Default, EventTypes.KEY_ATC_MENU_SELECT_2, false);
+
+        simConnect!.MapClientEventToSimEvent(EventTypes.KEY_ATC_MENU_SELECT_3, "ATC_MENU_3");
+        simConnect!.AddClientEventToNotificationGroup(Groups.Default, EventTypes.KEY_ATC_MENU_SELECT_3, false);
+
+        simConnect!.MapClientEventToSimEvent(EventTypes.KEY_ATC_MENU_SELECT_4, "ATC_MENU_4");
+        simConnect!.AddClientEventToNotificationGroup(Groups.Default, EventTypes.KEY_ATC_MENU_SELECT_4, false);
+
+        simConnect!.MapClientEventToSimEvent(EventTypes.KEY_ATC_MENU_SELECT_5, "ATC_MENU_5");
+        simConnect!.AddClientEventToNotificationGroup(Groups.Default, EventTypes.KEY_ATC_MENU_SELECT_5, false);
+
+        simConnect!.MapClientEventToSimEvent(EventTypes.KEY_ATC_MENU_SELECT_6, "ATC_MENU_6");
+        simConnect!.AddClientEventToNotificationGroup(Groups.Default, EventTypes.KEY_ATC_MENU_SELECT_6, false);
+
+        simConnect!.MapClientEventToSimEvent(EventTypes.KEY_ATC_MENU_SELECT_7, "ATC_MENU_7");
+        simConnect!.AddClientEventToNotificationGroup(Groups.Default, EventTypes.KEY_ATC_MENU_SELECT_7, false);
+
+        simConnect!.MapClientEventToSimEvent(EventTypes.KEY_ATC_MENU_SELECT_8, "ATC_MENU_8");
+        simConnect!.AddClientEventToNotificationGroup(Groups.Default, EventTypes.KEY_ATC_MENU_SELECT_8, false);
+
+        simConnect!.MapClientEventToSimEvent(EventTypes.KEY_ATC_MENU_SELECT_9, "ATC_MENU_9");
+        simConnect!.AddClientEventToNotificationGroup(Groups.Default, EventTypes.KEY_ATC_MENU_SELECT_9, false);
     }
 
     public void PressButton(EventTypes eventType, uint data = 0)
     {
-        simConnect!.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, eventType, data, Groups.Group1, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+        simConnect!.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, eventType, data, Groups.Default, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
     }
 
     private static T Convert<T>(DataTypes type, SIMCONNECT_RECV_SIMOBJECT_DATA data)

@@ -2,6 +2,6 @@
 {
     public enum Groups
     {
-        Group1 = 1,
+        Default = 1,
     }
 }

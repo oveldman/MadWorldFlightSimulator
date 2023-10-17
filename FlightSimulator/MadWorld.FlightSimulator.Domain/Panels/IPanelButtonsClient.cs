@@ -13,5 +13,6 @@ namespace MadWorld.FlightSimulator.Domain.Panels
         void TurnOffAutoPilot();
         void IncreaseAltitudeAutoPilot(AltitudeChangeValues altitudeChangeValues);
         void DecreaseAltitudeAutoPilot(AltitudeChangeValues altitudeChangeValues);
+        void SelectAtcOption(int option);
     }
 }

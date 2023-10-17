@@ -1,5 +1,4 @@
 using MadWorld.FlightSimulator.Domain.DataRetriever;
-using System.Formats.Asn1;
 
 namespace MadWorld.FlightSimulator.Simulator;
 

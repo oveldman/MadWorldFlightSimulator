@@ -90,5 +90,10 @@ namespace MadWorld.FlightSimulator.IOS.Components
         {
             await _hubConnection.InvokeAsync("DecreaseAltitudeAutoPilotByThousand");
         }
+
+        private async Task SelectAtcOption(int option)
+        {
+            await _hubConnection.InvokeAsync("SelectAtcOption", option);
+        }
     }
 }

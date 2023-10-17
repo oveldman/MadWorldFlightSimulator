@@ -24,6 +24,11 @@ namespace MadWorld.FlightSimulator.PC.Hubs
             Client.TurnOffAutoPilot();
         }
 
+        public void SelectAtcOption(int option)
+        {
+            Client.SelectAtcOption(option);
+        }
+
         public void IncreaseAltitudeAutoPilotByHundert()
         {
             Client.IncreaseAltitudeAutoPilot(AltitudeChangeValues.Hundert);
