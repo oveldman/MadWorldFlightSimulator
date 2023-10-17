@@ -42,7 +42,7 @@ public class SimClient : ISimClient, IDisposable
         while (IsConnected)
         {
             simConnect!.ReceiveMessage();
-            Thread.Sleep(1000);
+            Thread.Sleep(200);
         }
     }
 
