@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using MadWorld.FlightSimulator.Domain.DataRetriever;
 
 namespace MadWorld.FlightSimulator.Simulator;
@@ -57,16 +58,22 @@ public class SimClient<TType> : ISimClient where TType : struct
         IsConnected = false;
     }
 
-    public void PressButton(EventTypes eventType, uint data)
+    public void PressButton(EventTypes eventType, uint data = 0)
     {
-        if (eventType == EventTypes.KEY_AUTOPILOT_ON)
+        switch (eventType)
         {
-            RandomFlightDataGenerator<TType>.SetAutoPilot(true);
-        }
-
-        if (eventType == EventTypes.KEY_AUTOPILOT_OFF)
-        {
-            RandomFlightDataGenerator<TType>.SetAutoPilot(false);
+            case EventTypes.KEY_AUTOPILOT_ON:
+                RandomFlightDataGenerator<TType>.SetAutoPilot(true);
+                break;
+            case EventTypes.KEY_AUTOPILOT_OFF:
+                RandomFlightDataGenerator<TType>.SetAutoPilot(false);
+                break;
+            case EventTypes.KEY_AUTOPILOT_INCREASE_ALTITUDE:
+                RandomFlightDataGenerator<TType>.IncreaseAltitudeAutoPilot(data);
+                break;
+            case EventTypes.KEY_AUTOPILOT_DECREASE_ALTITUDE:
+                RandomFlightDataGenerator<TType>.DecreaseAltitudeAutoPilot(data);
+                break;
         }
     }
 }
